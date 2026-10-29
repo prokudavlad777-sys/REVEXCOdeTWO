@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>REVEX CODE</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ЛІВА ПАНЕЛЬ -->
+  <aside id="left">
+    <div class="brand"><span class="logo">R</span><span class="bname">REVEX <b>CODE</b></span></div>
+    <nav class="tabs" id="leftTabs">
+      <button data-tab="chats" class="on" data-i18n="tab.chats"></button>
+      <button data-tab="project" data-i18n="tab.project"></button>
+      <button data-tab="models" data-i18n="tab.models"></button>
+    </nav>
+
+    <section class="tabpane on" id="tab-chats">
+      <button id="newChat" class="btn primary wide" data-i18n="chat.new"></button>
+      <div id="chatList" class="list"></div>
+    </section>
+
+    <section class="tabpane" id="tab-project">
+      <button id="openFolder" class="btn primary wide" data-i18n="proj.open"></button>
+      <div id="projInfo" class="muted small pad"></div>
+      <input id="projSearch" class="inp" data-i18n-ph="proj.search">
+      <div id="searchRes" class="list"></div>
+      <div id="tree" class="tree"></div>
+    </section>
+
+    <section class="tabpane" id="tab-models">
+      <div id="hwBox" class="card small"></div>
+      <h4 data-i18n="models.installed"></h4>
+      <div id="installedList" class="list"></div>
+      <h4 data-i18n="models.catalog"></h4>
+      <div id="catalogList" class="list"></div>
+      <h4 data-i18n="models.cloud"></h4>
+      <div id="cloudList" class="list"></div>
+    </section>
+  </aside>
+
+  <!-- ЦЕНТР -->
+  <main id="center">
+    <section id="chatPane">
+      <header class="pane-h">
+        <span id="chatTitle" class="ttl"></span>
+        <span class="sp"></span>
+        <button id="toggleEditor" class="btn sm" data-i18n="editor.toggle"></button>
+      </header>
+      <div id="messages"></div>
+      <div id="genBar">
+        <button id="btnStop" class="btn danger sm hidden" data-i18n="chat.stop"></button>
+        <button id="btnContinue" class="btn sm hidden" data-i18n="chat.continue"></button>
+        <button id="btnRetry" class="btn sm hidden" data-i18n="chat.retry"></button>
+        <span id="liveTps" class="muted small"></span>
+      </div>
+      <div id="composer">
+        <div id="attachBar"></div>
+        <div class="crow">
+          <button id="btnAttach" class="icon" data-i18n-title="chat.attach">+</button>
+          <input type="file" id="fileIn" accept="image/png,image/jpeg,image/webp" multiple hidden>
+          <textarea id="input" rows="2" data-i18n-ph="chat.ph"></textarea>
+          <button id="btnSend" class="btn primary" data-i18n="chat.send"></button>
+        </div>
+        <label class="chk small"><input type="checkbox" id="useProject"><span data-i18n="chat.useProject"></span></label>
+      </div>
+    </section>
+
+    <div class="splitter hidden" id="splitter"></div>
+
+    <section id="editorPane" class="hidden">
+      <div id="edTabs"></div>
+      <div class="ed-tools">
+        <button id="edSave" class="btn sm" data-i18n="ed.save"></button>
+        <button id="edUndo" class="btn sm" data-i18n="ed.undo"></button>
+        <button id="edRevert" class="btn sm" data-i18n="ed.revert"></button>
+        <span class="sp"></span>
+        <button id="edRun" class="btn sm primary" data-i18n="ed.run"></button>
+        <button id="edRunStop" class="btn sm danger hidden" data-i18n="ed.runStop"></button>
+      </div>
+      <div id="edBody">
+        <div id="monaco"></div>
+        <div id="edEmpty" class="empty" data-i18n="ed.empty"></div>
+        <div id="diffView" class="hidden">
+          <div class="diff-h"><span id="diffTitle"></span><span class="sp"></span>
+            <button id="diffAccept" class="btn sm primary" data-i18n="ed.accept"></button>
+            <button id="diffReject" class="btn sm" data-i18n="ed.reject"></button></div>
+          <div id="diffEd"></div>
+        </div>
+      </div>
+      <div id="term" class="hidden">
+        <div class="term-h"><span data-i18n="ed.output"></span><span class="sp"></span><button id="termClear" class="btn sm" data-i18n="ed.clear"></button><button id="termClose" class="btn sm">×</button></div>
+        <pre id="termOut"></pre>
+      </div>
+    </section>
+  </main>
+
+  <!-- ПРАВА ПАНЕЛЬ -->
+  <aside id="right">
+    <div class="rsec">
+      <label data-i18n="r.model"></label>
+      <select id="modelSel"></select>
+      <div id="modelNote" class="muted small"></div>
+    </div>
+    <div class="rsec">
+      <div class="row"><span id="engDot" class="dot"></span><span id="engText" class="small"></span></div>
+      <div class="row wrap"><button id="engStart" class="btn sm"></button><button id="engWizard" class="btn sm" data-i18n="r.wizard"></button></div>
+    </div>
+    <div class="rsec">
+      <div class="meter"><label>RAM</label><div class="bar"><i id="ramBar"></i></div><span id="ramTxt" class="small"></span></div>
+      <div class="meter"><label>VRAM</label><div class="bar"><i id="vramBar"></i></div><span id="vramTxt" class="small"></span></div>
+    </div>
+    <div class="rsec">
+      <div class="kv"><span data-i18n="r.speed"></span><b id="stTps">—</b></div>
+      <div class="kv"><span data-i18n="r.ttft"></span><b id="stTtft">—</b></div>
+      <div class="kv"><span data-i18n="r.usedModel"></span><b id="stModel">—</b></div>
+      <div class="meter"><label data-i18n="r.context"></label><div class="bar"><i id="ctxBar"></i></div><span id="ctxTxt" class="small"></span></div>
+      <div id="ctxNote" class="muted small"></div>
+    </div>
+    <div class="rsec">
+      <h4 data-i18n="r.params"></h4>
+      <label class="sl"><span data-i18n="r.temp"></span><input type="range" id="pTemp" min="0" max="1.5" step="0.05"><em id="vTemp"></em></label>
+      <label class="sl"><span>top_p</span><input type="range" id="pTopP" min="0.1" max="1" step="0.05"><em id="vTopP"></em></label>
+      <label class="sl"><span data-i18n="r.ctxLen"></span><select id="pCtx"></select></label>
+      <label class="sl"><span data-i18n="r.maxTok"></span><input type="number" id="pPredict" min="0" step="128" class="inp num"></label>
+      <label class="chk small"><input type="checkbox" id="pCache"><span data-i18n="r.cache"></span></label>
+      <button id="btnClearCache" class="btn sm wide" data-i18n="r.clearCache"></button>
+    </div>
+    <div class="rsec">
+      <label data-i18n="r.lang"></label>
+      <select id="langSel"><option value="uk">Українська</option><option value="en">English</option></select>
+    </div>
+  </aside>
+</div>
+
+<div id="modal" class="hidden"><div id="modalBox"></div></div>
+<div id="toast" class="hidden"></div>
+
+<script src="../shared/blocks.js"></script>
+<script src="i18n.js"></script>
+<script src="util.js"></script>
+<script src="editor.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
